@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 
 type Mode = "Manual" | "Assisted" | "Autonomous";
+type NetworkStatus = "ready" | "pending" | "blocked";
+type NetworkRow = readonly [string, string, NetworkStatus];
 
-const networks = [
+const networks: readonly NetworkRow[] = [
   ["Facebook", "Meta adapter", "pending"],
   ["Instagram", "Meta adapter", "pending"],
   ["Threads", "Meta adapter", "pending"],
@@ -14,7 +16,7 @@ const networks = [
   ["LinkedIn", "OAuth adapter", "pending"],
   ["X", "OAuth adapter", "pending"],
   ["Pinterest", "OAuth adapter", "pending"]
-] as const;
+];
 
 const queue = [
   ["08:15", "Cox Paralegal Services", "Business services flyer", "Instagram + Facebook"],
@@ -22,7 +24,7 @@ const queue = [
   ["12:45", "YIE YIE YIE", "AI finance platform teaser", "YouTube + X"],
   ["15:00", "Vehicle Export", "Overseas buyer campaign", "Facebook + Instagram"],
   ["18:30", "AACC", "Community awareness campaign", "Facebook + YouTube"]
-];
+] as const;
 
 export default function Dashboard() {
   const [mode, setMode] = useState<Mode>("Assisted");

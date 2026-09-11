@@ -1,7 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const PUBLIC_PATHS = new Set(["/api/health", "/api/scheduler/tick"]);
+const PUBLIC_PATHS = new Set([
+  "/api/health",
+  "/api/scheduler/tick",
+  "/api/oauth/youtube/callback",
+]);
 
 function unauthorized(message = "Authentication required") {
   return new NextResponse(message, {

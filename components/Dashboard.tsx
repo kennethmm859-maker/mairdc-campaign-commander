@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ChangeEvent } from "react";
 
 type Mode = "Manual" | "Assisted" | "Autonomous";
 type NetworkStatus = "ready" | "pending" | "blocked";
@@ -36,6 +36,10 @@ export default function Dashboard() {
     try { await fetch("/api/emergency-stop", { method: "POST" }); } catch {}
   }
 
+  function handleModeChange(e: ChangeEvent<HTMLSelectElement>) {
+    setMode(e.target.value as Mode);
+  }
+
   return (
     <main className="shell">
       <header className="header">
@@ -46,7 +50,7 @@ export default function Dashboard() {
         </div>
         <div className="row">
           <label className="muted">Mode</label>
-          <select className="btn" value={mode} onChange={(e)=>setMode(e.target.value as Mode)}>
+          <select className="btn" value={mode} onChange={handleModeChange}>
             <option>Manual</option><option>Assisted</option><option>Autonomous</option>
           </select>
           <button className="btn danger" onClick={emergencyStop}>{paused ? "PUBLISHING PAUSED" : "STOP ALL POSTING"}</button>
